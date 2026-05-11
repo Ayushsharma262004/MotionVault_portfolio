@@ -1,0 +1,159 @@
+{
+  "theme": "light",
+  "archetype": "Archetype 4: Swiss & High-Contrast (AI & Sports Glassmorphism Variant)",
+  "brand_name": "Empire AI",
+  "typography": {
+    "headings": {
+      "font_family": "Outfit",
+      "weights": ["400", "700", "900"],
+      "usage_rules": "Tight tracking (tracking-tighter) for H1/H2. Left-align or intentional asymmetry. NEVER use Inter."
+    },
+    "body": {
+      "font_family": "Manrope",
+      "weights": ["400", "500"],
+      "usage_rules": "Loose line-height (leading-relaxed) for maximum legibility."
+    },
+    "scales": {
+      "h1": "text-5xl md:text-6xl lg:text-[5rem] leading-none tracking-tighter",
+      "h2": "text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight",
+      "h3": "text-2xl md:text-3xl lg:text-4xl tracking-tight",
+      "body": "text-base md:text-lg",
+      "overline": "text-xs font-bold uppercase tracking-[0.2em]"
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#FAFAFA",
+      "secondary": "#F0F2F5",
+      "glass": "rgba(255, 255, 255, 0.6)"
+    },
+    "text": {
+      "primary": "#0A0A0A",
+      "secondary": "#52525B",
+      "inverse": "#FFFFFF"
+    },
+    "accents": {
+      "blue_glow": "#3081FF",
+      "stadium_green": "#22C55E",
+      "sports_red": "#FF3B30",
+      "silver_gradient": "linear-gradient(135deg, #E2E8F0 0%, #F8FAFC 100%)"
+    }
+  },
+  "surfaces": {
+    "glassmorphism_heavy": "bg-white/70 backdrop-blur-2xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.04)] backdrop-saturate-150",
+    "glassmorphism_light": "bg-white/40 backdrop-blur-xl border border-white/20 shadow-sm",
+    "tracing_beam_card": "relative overflow-hidden bg-white/50 backdrop-blur-md border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl",
+    "dashboard_panel": "bg-white border border-gray-100 rounded-2xl shadow-sm"
+  },
+  "layout_and_spacing": {
+    "page_padding": "px-6 md:px-12 lg:px-24",
+    "section_spacing": "py-24 md:py-32 lg:py-40",
+    "grid_bento_marketing": "grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-8 lg:gap-12",
+    "grid_bento_dashboard": "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6",
+    "container_max": "max-w-7xl mx-auto"
+  },
+  "sections": [
+    {
+      "name": "Floating Glassmorphism Navbar",
+      "structure": "Fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 rounded-full py-3 px-6",
+      "surface": "glassmorphism_heavy",
+      "components": ["Logo", "Navigation Links", "Primary CTA (Book Demo)"]
+    },
+    {
+      "name": "Cinematic Hero Section",
+      "structure": "min-h-[90vh] flex flex-col justify-center relative overflow-hidden text-center md:text-left pt-32",
+      "motion": "GSAP stagger text reveal. Spotlight reveal on mousemove.",
+      "visuals": "Abstract silver/white background. Soft blue glowing blurred spheres in the background. Massive Outfit typography.",
+      "components": ["Overline: 'THE FUTURE OF UMPIRING'", "H1: 'Intelligent Officiating.'", "Subtext", "Primary CTA", "Play Video button with glassmorphism"]
+    },
+    {
+      "name": "Sports Showcase",
+      "structure": "Sticky horizontal scrolling section (200vh track). framer-motion useScroll or GSAP ScrollTrigger.",
+      "visuals": "Large cards (glassmorphism_light) containing vivid sports imagery with glowing AI overlay UI (bounding boxes, ball trajectory lines)."
+    },
+    {
+      "name": "How It Works Timeline",
+      "structure": "Vertical centered line glowing with blue/green gradient. Alternating content blocks left/right.",
+      "motion": "Nodes light up as user scrolls down."
+    },
+    {
+      "name": "Live AI Dashboard",
+      "structure": "Bento Grid Mode B (Control Room Grid). High density, functional.",
+      "components": ["Accuracy Gauge (Recharts)", "Real-time VAR feed", "Decision logs"],
+      "surface": "dashboard_panel"
+    },
+    {
+      "name": "Video Storytelling",
+      "structure": "Full-width section with massive border-radius (rounded-[3rem]). Cinematic video thumbnail with heavy glassmorphism play button centered.",
+      "visuals": "Use video_thumbnail image with bg-black/20 overlay."
+    },
+    {
+      "name": "Pricing",
+      "structure": "Grid of 3 cards. Center card scaled up 1.05x with 'tracing_beam_card' styling and subtle stadium_green glow.",
+      "components": ["Feature list", "Pricing tier", "Glass CTA"]
+    },
+    {
+      "name": "FAQ",
+      "structure": "Customized Shadcn Accordion. Minimal borders, elegant open/close animations."
+    },
+    {
+      "name": "Footer",
+      "structure": "py-32 bg-gray-50 border-t border-gray-200 flex flex-col items-center. Massive 'EMPIRE AI' display text at the bottom.",
+      "typography": "text-[12vw] font-black tracking-tighter text-gray-200"
+    }
+  ],
+  "motion_and_interactions": {
+    "hover_states": "Buttons: scale-[1.02] active:scale-95. Cards: -translate-y-1 shadow-lg.",
+    "scroll_effects": "Mandatory setup of Lenis (smooth scrolling). GSAP ScrollTrigger for revealing sections with y:40 -> y:0 and opacity:0 -> opacity:1.",
+    "micro_interactions": "Magnetic buttons for primary CTAs. Spotlight effect (radial gradient background following mouse) on key pricing/feature cards."
+  },
+  "media_urls": [
+    {
+      "category": "hero_background",
+      "url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+      "description": "Abstract white and light silver background for a clean Apple-like aesthetic"
+    },
+    {
+      "category": "sports_showcase_football",
+      "url": "https://images.unsplash.com/photo-1518605368461-1ee7c510808a?q=80&w=2400&auto=format&fit=crop",
+      "description": "Football stadium field under lights"
+    },
+    {
+      "category": "sports_showcase_tennis",
+      "url": "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=2400&auto=format&fit=crop",
+      "description": "Tennis court"
+    },
+    {
+      "category": "sports_showcase_cricket",
+      "url": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2400&auto=format&fit=crop",
+      "description": "Cricket stadium"
+    },
+    {
+      "category": "video_thumbnail",
+      "url": "https://images.unsplash.com/photo-1508344928928-7137b29de218?q=80&w=2400&auto=format&fit=crop",
+      "description": "Umpire/Referee perspective on sports field"
+    },
+    {
+      "category": "dashboard_stats_bg",
+      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2400&auto=format&fit=crop",
+      "description": "Data and dashboard abstract"
+    }
+  ],
+  "accessibility": {
+    "contrast": "APCA contrast standards required. Use #0A0A0A for text on white/gray.",
+    "reduced_motion": "Wrap GSAP/Framer animations in prefers-reduced-motion checks.",
+    "focus_states": "focus:ring-2 focus:ring-[#3081FF] focus:outline-none focus:ring-offset-2"
+  },
+  "testing": {
+    "data_testid_rules": "All interactive elements MUST have data-testid attributes (e.g., data-testid='navbar-book-demo')."
+  },
+  "instructions_to_main_agent": [
+    "1. Initialize layout with Pure HTML/Tailwind for structural marketing sections (Hero, Showcase).",
+    "2. Install and configure @studio-freight/react-lenis for premium smooth scrolling.",
+    "3. Use framer-motion or gsap for scroll animations, text reveals, and the horizontal scrolling in the Showcase section.",
+    "4. Import Outfit font for headings and Manrope for body text via Google Fonts.",
+    "5. Use Shadcn UI for complex interactive forms (Email Collection, Contact, Accordion), overriding default Vercel styles with custom glassmorphism and rounded-2xl utilities.",
+    "6. Do NOT use placeholder text or dummy image URLs. ALWAYS use the real Unsplash media_urls provided.",
+    "7. Ensure the UI feels bright, immersive, and premium ('Apple Keynote meets live sports')."
+  ]
+}
