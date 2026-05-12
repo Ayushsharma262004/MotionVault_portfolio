@@ -80,7 +80,7 @@ export default function Dashboard() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-16 gsap-heading`}>
           <span className="text-xs font-body font-bold uppercase tracking-[0.2em] text-empire-green">
             // Live Dashboard
           </span>
@@ -96,7 +96,7 @@ export default function Dashboard() {
         </div>
 
         {/* Dashboard grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 gsap-stagger">
           {/* Stat cards */}
           {dashboardPanels.map((panel, i) => (
             <div

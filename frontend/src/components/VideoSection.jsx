@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { Play } from 'lucide-react';
 
-export default function VideoSection() {
+export default function VideoSection({ onOpenVideo }) {
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
@@ -23,7 +23,7 @@ export default function VideoSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-12 gsap-heading`}>
           <span className="text-xs font-body font-bold uppercase tracking-[0.2em] text-empire-blue">
             // See It In Action
           </span>
@@ -37,12 +37,12 @@ export default function VideoSection() {
 
         {/* Main video */}
         <div
-          className={`relative rounded-[2rem] overflow-hidden transition-all duration-700 ${
+          className={`relative rounded-[2rem] overflow-hidden gsap-scale transition-all duration-700 ${
             isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
           style={{ transitionDelay: '300ms' }}
         >
-          <div className="aspect-video relative group cursor-pointer">
+          <div className="aspect-video relative group cursor-pointer" onClick={() => onOpenVideo && onOpenVideo({ title: 'Empire AI Match Analysis', subtitle: 'Full demonstration of real-time AI officiating', duration: '3:24', image: 'https://images.unsplash.com/photo-1508344928928-7137b29de218?q=80&w=2400&auto=format&fit=crop' })}>
             <img
               src="https://images.unsplash.com/photo-1508344928928-7137b29de218?q=80&w=2400&auto=format&fit=crop"
               alt="Empire AI in action"

@@ -58,7 +58,7 @@ export default function BlogSection() {
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className={`flex flex-col md:flex-row md:items-end md:justify-between mb-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`flex flex-col md:flex-row md:items-end md:justify-between mb-12 gsap-heading`}>
           <div>
             <span className="text-xs font-body font-bold uppercase tracking-[0.2em] text-empire-blue">
               // Insights
@@ -80,7 +80,7 @@ export default function BlogSection() {
         </div>
 
         {/* Blog grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gsap-stagger">
           {posts.map((post, i) => (
             <article
               key={i}

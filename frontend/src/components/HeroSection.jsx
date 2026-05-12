@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowRight, Play, Zap, Globe, Shield, Eye } from 'lucide-react';
 
 const rotatingTexts = [
@@ -11,10 +11,12 @@ const rotatingTexts = [
   'Real-Time Ball Tracking',
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ onOpenVideo }) {
   const heroRef = useRef(null);
+  const spotlightRef = useRef(null);
   const [currentText, setCurrentText] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     setIsVisible(true);
@@ -24,19 +26,42 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleMouseMove = useCallback((e) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  }, []);
+
   return (
     <section
       id="hero"
       ref={heroRef}
       data-testid="hero-section"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-16"
+      onMouseMove={handleMouseMove}
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-[#F0F4FF] via-[#FAFAFA] to-[#F0F2F5]" />
+        {/* Spotlight follow */}
+        <div
+          data-testid="hero-spotlight"
+          className="absolute pointer-events-none z-[1] transition-opacity duration-300"
+          style={{
+            width: 500,
+            height: 500,
+            left: mousePos.x - 250,
+            top: mousePos.y - 250,
+            background: 'radial-gradient(circle, rgba(48,129,255,0.07) 0%, rgba(34,197,94,0.03) 40%, transparent 70%)',
+            borderRadius: '50%',
+          }}
+        />
         {/* Decorative orbs */}
-        <div className="absolute top-20 right-[15%] w-[500px] h-[500px] rounded-full bg-empire-blue/5 blur-[100px] animate-glow-pulse" />
-        <div className="absolute bottom-20 left-[10%] w-[400px] h-[400px] rounded-full bg-empire-green/5 blur-[80px] animate-glow-pulse" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute top-20 right-[15%] w-[500px] h-[500px] rounded-full bg-empire-blue/5 blur-[100px] animate-glow-pulse gsap-parallax" />
+        <div className="absolute bottom-20 left-[10%] w-[400px] h-[400px] rounded-full bg-empire-green/5 blur-[80px] animate-glow-pulse gsap-parallax" style={{ animationDelay: '1.5s' }} />
         <div className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full bg-empire-blue/3 blur-[60px]" />
         {/* Grid pattern */}
         <div
@@ -120,6 +145,7 @@ export default function HeroSection() {
         >
           <button
             data-testid="hero-watch-demo"
+            onClick={() => onOpenVideo && onOpenVideo({ title: 'Empire AI Demo', subtitle: 'Full demonstration of real-time AI officiating', duration: '3:24' })}
             className="px-6 py-3 text-sm font-body font-semibold text-white bg-empire-blue rounded-full hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-lg glow-blue flex items-center gap-2"
           >
             Watch Demo
