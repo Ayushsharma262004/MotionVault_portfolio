@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
+import CinematicHero from "@/components/CinematicHero";
 import SportsShowcase from "@/components/SportsShowcase";
 import HowItWorks from "@/components/HowItWorks";
 import Dashboard from "@/components/Dashboard";
@@ -27,9 +26,8 @@ const LandingPage = () => {
   const closeVideo = () => setVideoModal({ open: false, video: null });
 
   return (
-    <div className="min-h-screen bg-empire-bg font-body" data-testid="landing-page">
-      <Navbar />
-      <HeroSection onOpenVideo={openVideo} />
+    <div className="min-h-screen font-body" data-testid="landing-page">
+      <CinematicHero />
       <SportsShowcase />
       <HowItWorks />
       <Dashboard />
