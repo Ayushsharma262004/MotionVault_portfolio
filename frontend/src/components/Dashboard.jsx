@@ -51,25 +51,17 @@ export default function Dashboard() {
       id="dashboard"
       ref={sectionRef}
       data-testid="dashboard-section"
-      className="py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden"
+      className="py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24 bg-empire-black relative overflow-hidden"
     >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-empire-blue/3 blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-empire-red/3 blur-[150px] gsap-parallax" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16 gsap-heading">
-          <span className="text-xs font-body font-bold uppercase tracking-[0.2em] text-empire-green">
-            // Database Overview
-          </span>
-          <h2
-            data-testid="dashboard-heading"
-            className="font-heading font-black text-4xl md:text-5xl lg:text-6xl text-empire-dark leading-tight tracking-tight mt-4"
-          >
-            Platform<br />Analytics.
-          </h2>
-          <p className="mt-4 text-base md:text-lg font-body text-empire-gray max-w-xl mx-auto leading-relaxed">
-            Overview of inquiries, subscriptions, and engagement received through the Empire AI platform.
-          </p>
+          <span className="text-xs font-body font-bold uppercase tracking-[0.25em] text-empire-red">// Database Overview</span>
+          <h2 data-testid="dashboard-heading" className="font-heading font-black text-4xl md:text-5xl lg:text-6xl text-white leading-tight tracking-tight mt-4">
+            Platform<br /><span className="text-gradient-red">Analytics.</span></h2>
+          <p className="mt-4 text-base md:text-lg font-body text-white/50 max-w-xl mx-auto leading-relaxed">Overview of inquiries, subscriptions, and engagement.</p>
         </div>
 
         {/* Stats */}
@@ -83,7 +75,7 @@ export default function Dashboard() {
             <div
               key={i}
               data-testid={`dashboard-stat-${i}`}
-              className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm"
+              className="bg-empire-surface border border-white/6 rounded-2xl p-5 shadow-sm"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${stat.color}10` }}>
@@ -91,8 +83,8 @@ export default function Dashboard() {
                 </div>
                 {loading && <RefreshCw className="w-3.5 h-3.5 text-gray-300 animate-spin" />}
               </div>
-              <div className="font-heading font-bold text-3xl text-empire-dark tracking-tight">{stat.value}</div>
-              <p className="text-xs font-body text-empire-gray mt-1">{stat.label}</p>
+              <div className="font-heading font-bold text-3xl text-white tracking-tight">{stat.value}</div>
+              <p className="text-xs font-body text-white/50 mt-1">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -102,11 +94,11 @@ export default function Dashboard() {
           {/* Recent contacts */}
           <div
             data-testid="dashboard-recent-contacts"
-            className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm"
+            className="bg-white border border-white/6 rounded-2xl p-5 shadow-sm"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-heading font-bold text-lg text-empire-dark">Recent Inquiries</h3>
-              <div className="flex items-center gap-1.5 text-xs font-body text-empire-blue font-semibold">
+              <h3 className="font-heading font-bold text-lg text-white">Recent Inquiries</h3>
+              <div className="flex items-center gap-1.5 text-xs font-body text-empire-red font-semibold">
                 <Database className="w-3 h-3" />
                 {contacts.length} records
               </div>
@@ -114,31 +106,31 @@ export default function Dashboard() {
             {recentContacts.length === 0 ? (
               <div className="text-center py-8">
                 <MessageSquare className="w-6 h-6 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm font-body text-empire-gray">No inquiries yet</p>
+                <p className="text-sm font-body text-white/50">No inquiries yet</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {recentContacts.map((c, i) => (
-                  <div key={i} className="flex items-start gap-3 py-2.5 border-b border-gray-50 last:border-0">
-                    <div className="w-8 h-8 rounded-lg bg-empire-blue/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-body font-bold text-empire-blue">
+                  <div key={i} className="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-0">
+                    <div className="w-8 h-8 rounded-lg bg-empire-red/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-xs font-body font-bold text-empire-red">
                         {c.name?.charAt(0)?.toUpperCase() || '?'}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-body font-medium text-empire-dark truncate">{c.name}</span>
+                        <span className="text-sm font-body font-medium text-white truncate">{c.name}</span>
                         {c.sport && (
-                          <span className="text-[10px] font-body font-semibold bg-empire-green/10 text-empire-green px-2 py-0.5 rounded-full flex-shrink-0">
+                          <span className="text-[10px] font-body font-semibold bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full flex-shrink-0">
                             {c.sport}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs font-body text-empire-gray truncate mt-0.5">{c.message}</p>
+                      <p className="text-xs font-body text-white/50 truncate mt-0.5">{c.message}</p>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-[10px] font-body text-empire-blue">{c.email}</span>
+                        <span className="text-[10px] font-body text-empire-red">{c.email}</span>
                         {c.created_at && (
-                          <span className="text-[10px] font-body text-empire-gray">
+                          <span className="text-[10px] font-body text-white/50">
                             {new Date(c.created_at).toLocaleDateString()}
                           </span>
                         )}
@@ -153,11 +145,11 @@ export default function Dashboard() {
           {/* Subscribers */}
           <div
             data-testid="dashboard-subscribers-list"
-            className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm"
+            className="bg-white border border-white/6 rounded-2xl p-5 shadow-sm"
           >
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-heading font-bold text-lg text-empire-dark">Email Subscribers</h3>
-              <div className="flex items-center gap-1.5 text-xs font-body text-empire-green font-semibold">
+              <h3 className="font-heading font-bold text-lg text-white">Email Subscribers</h3>
+              <div className="flex items-center gap-1.5 text-xs font-body text-green-400 font-semibold">
                 <Mail className="w-3 h-3" />
                 {subscribers.length} subscribed
               </div>
@@ -165,20 +157,20 @@ export default function Dashboard() {
             {subscribers.length === 0 ? (
               <div className="text-center py-8">
                 <Mail className="w-6 h-6 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm font-body text-empire-gray">No subscribers yet</p>
+                <p className="text-sm font-body text-white/50">No subscribers yet</p>
               </div>
             ) : (
               <div className="space-y-2.5">
                 {subscribers.slice(-8).reverse().map((s, i) => (
-                  <div key={i} className="flex items-center gap-3 py-2 border-b border-gray-50 last:border-0">
-                    <div className="w-8 h-8 rounded-lg bg-empire-green/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-3.5 h-3.5 text-empire-green" />
+                  <div key={i} className="flex items-center gap-3 py-2 border-b border-white/5 last:border-0">
+                    <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-3.5 h-3.5 text-green-400" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <span className="text-sm font-body font-medium text-empire-dark truncate block">{s.email}</span>
+                      <span className="text-sm font-body font-medium text-white truncate block">{s.email}</span>
                     </div>
                     {s.created_at && (
-                      <span className="text-[10px] font-body text-empire-gray flex-shrink-0">
+                      <span className="text-[10px] font-body text-white/50 flex-shrink-0">
                         {new Date(s.created_at).toLocaleDateString()}
                       </span>
                     )}
@@ -191,13 +183,13 @@ export default function Dashboard() {
           {/* Sports breakdown */}
           <div
             data-testid="dashboard-sports-breakdown"
-            className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm"
+            className="bg-white border border-white/6 rounded-2xl p-5 shadow-sm"
           >
-            <h3 className="font-heading font-bold text-lg text-empire-dark mb-4">Interest by Sport</h3>
+            <h3 className="font-heading font-bold text-lg text-white mb-4">Interest by Sport</h3>
             {uniqueSports.length === 0 ? (
               <div className="text-center py-8">
                 <Globe className="w-6 h-6 text-gray-300 mx-auto mb-2" />
-                <p className="text-sm font-body text-empire-gray">No sport data yet</p>
+                <p className="text-sm font-body text-white/50">No sport data yet</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -207,12 +199,12 @@ export default function Dashboard() {
                   return (
                     <div key={sport}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm font-body font-medium text-empire-dark">{sport}</span>
-                        <span className="text-xs font-body text-empire-gray">{count} ({pct}%)</span>
+                        <span className="text-sm font-body font-medium text-white">{sport}</span>
+                        <span className="text-xs font-body text-white/50">{count} ({pct}%)</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
                         <div
-                          className="h-full rounded-full bg-empire-blue transition-all duration-1000"
+                          className="h-full rounded-full bg-empire-red transition-all duration-1000"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -226,9 +218,9 @@ export default function Dashboard() {
           {/* Recent activity */}
           <div
             data-testid="dashboard-recent-activity"
-            className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm"
+            className="bg-white border border-white/6 rounded-2xl p-5 shadow-sm"
           >
-            <h3 className="font-heading font-bold text-lg text-empire-dark mb-4">Recent Activity</h3>
+            <h3 className="font-heading font-bold text-lg text-white mb-4">Recent Activity</h3>
             <div className="space-y-3">
               {[...contacts.slice(-3).reverse().map(c => ({
                 type: 'contact',
@@ -242,14 +234,14 @@ export default function Dashboard() {
                 detail: s.email,
                 time: s.created_at,
               }))].sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 5).map((item, i) => (
-                <div key={i} className="flex items-center gap-3 py-2 border-b border-gray-50 last:border-0">
-                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.type === 'contact' ? 'bg-empire-blue' : 'bg-empire-green'}`} />
+                <div key={i} className="flex items-center gap-3 py-2 border-b border-white/5 last:border-0">
+                  <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.type === 'contact' ? 'bg-empire-red' : 'bg-green-500'}`} />
                   <div className="flex-1 min-w-0">
-                    <span className="text-sm font-body text-empire-dark block truncate">{item.text}</span>
-                    <span className="text-[10px] font-body text-empire-gray">{item.detail}</span>
+                    <span className="text-sm font-body text-white block truncate">{item.text}</span>
+                    <span className="text-[10px] font-body text-white/50">{item.detail}</span>
                   </div>
                   {item.time && (
-                    <span className="text-[10px] font-body text-empire-gray flex-shrink-0 flex items-center gap-1">
+                    <span className="text-[10px] font-body text-white/50 flex-shrink-0 flex items-center gap-1">
                       <Clock className="w-2.5 h-2.5" />
                       {new Date(item.time).toLocaleDateString()}
                     </span>
@@ -258,7 +250,7 @@ export default function Dashboard() {
               ))}
               {contacts.length === 0 && subscribers.length === 0 && (
                 <div className="text-center py-6">
-                  <p className="text-sm font-body text-empire-gray">No activity yet</p>
+                  <p className="text-sm font-body text-white/50">No activity yet</p>
                 </div>
               )}
             </div>
