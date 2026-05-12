@@ -67,6 +67,20 @@ async def create_contact(input: ContactCreate):
     doc = submission.model_dump()
     await db.contacts.insert_one(doc)
     doc.pop('_id', None)
+    
+    # Store notification for admin
+    notification = {
+        "id": str(uuid.uuid4()),
+        "type": "contact_form",
+        "recipient": os.environ.get('NOTIFICATION_EMAIL', ''),
+        "subject": f"New Contact: {input.name} - {input.email}",
+        "body": f"Name: {input.name}\nEmail: {input.email}\nPhone: {input.phone or 'N/A'}\nSport: {input.sport or 'N/A'}\nMessage: {input.message}",
+        "read": False,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.notifications.insert_one(notification)
+    notification.pop('_id', None)
+    
     return submission
 
 @api_router.get("/contacts", response_model=List[ContactSubmission])
@@ -89,6 +103,18 @@ async def subscribe_email(input: EmailCreate):
 async def get_subscribers():
     subs = await db.subscribers.find({}, {"_id": 0}).to_list(1000)
     return subs
+
+@api_router.get("/notifications")
+async def get_notifications():
+    notifs = await db.notifications.find({}, {"_id": 0}).sort("created_at", -1).to_list(100)
+    return notifs
+
+@api_router.put("/notifications/{notif_id}/read")
+async def mark_notification_read(notif_id: str):
+    result = await db.notifications.update_one({"id": notif_id}, {"$set": {"read": True}})
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Notification not found")
+    return {"status": "ok"}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):

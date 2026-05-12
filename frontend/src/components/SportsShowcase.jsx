@@ -16,7 +16,7 @@ const sports = [
     id: 'football',
     title: 'Football Referee AI',
     subtitle: 'Total Match Awareness',
-    image: 'https://images.unsplash.com/photo-1518605368461-1ee7c510808a?q=80&w=2400&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1701363539457-875b9bc9bbc1?q=80&w=2400&auto=format&fit=crop',
     features: ['Goal-Line Analysis', 'Offside Detection', 'Referee Tracking', 'Player Heatmaps', 'Smart Foul Detection', 'VAR Integration'],
     icon: Crosshair,
     color: '#22C55E',

@@ -1,9 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check, ArrowRight, Sparkles } from 'lucide-react';
 
 const plans = [
   {
     name: 'Turf Setup',
+    slug: 'turf-setup',
     price: '2,499',
     period: '/month',
     description: 'Perfect for local turfs and practice facilities.',
@@ -20,6 +22,7 @@ const plans = [
   },
   {
     name: 'Academy Package',
+    slug: 'academy-package',
     price: '5,999',
     period: '/month',
     description: 'For coaching academies and training centers.',
@@ -38,6 +41,7 @@ const plans = [
   },
   {
     name: 'Tournament',
+    slug: 'tournament',
     price: '12,999',
     period: '/month',
     description: 'For tournament organizers and professional leagues.',
@@ -60,6 +64,7 @@ const plans = [
 export default function PricingSection() {
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -124,6 +129,7 @@ export default function PricingSection() {
 
               <button
                 data-testid={`pricing-cta-${plan.name.toLowerCase().replace(/\s/g, '-')}`}
+                onClick={() => navigate(`/plan/${plan.slug}`)}
                 className={`w-full mt-6 py-3 rounded-xl text-sm font-body font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
                   plan.popular
                     ? 'bg-empire-blue text-white hover:shadow-lg shadow-md'
@@ -159,6 +165,7 @@ export default function PricingSection() {
           </p>
           <button
             data-testid="pricing-enterprise-cta"
+            onClick={() => navigate('/plan/enterprise')}
             className="mt-6 px-6 py-3 bg-empire-dark text-white rounded-xl text-sm font-body font-semibold hover:bg-empire-dark/90 transition-colors inline-flex items-center gap-2"
           >
             Talk to Sales

@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, ArrowUpRight } from 'lucide-react';
 
 const posts = [
   {
+    slug: 'future-of-ai-in-sports',
     title: 'The Future of AI in Sports Officiating',
     excerpt: 'How machine learning is revolutionizing the way we officiate competitive sports, from cricket pitches to football stadiums.',
     category: 'AI & Sports',
@@ -11,6 +13,7 @@ const posts = [
     date: 'Dec 12, 2025',
   },
   {
+    slug: 'smart-stadium-technology',
     title: 'Smart Stadium Technology: A New Era',
     excerpt: 'Exploring how integrated camera systems and edge computing are transforming stadiums into intelligent venues.',
     category: 'Technology',
@@ -19,6 +22,7 @@ const posts = [
     date: 'Dec 8, 2025',
   },
   {
+    slug: 'automated-umpiring-systems',
     title: 'Automated Umpiring: Beyond Human Limits',
     excerpt: 'Why AI-powered officiating delivers consistency and accuracy that surpasses even the most experienced human referees.',
     category: 'Innovation',
@@ -27,6 +31,7 @@ const posts = [
     date: 'Dec 4, 2025',
   },
   {
+    slug: 'sports-vision-ai-deep-dive',
     title: 'Sports Vision AI: Technical Deep Dive',
     excerpt: 'Under the hood of computer vision models that track balls at 240fps and predict trajectories with sub-millimeter accuracy.',
     category: 'Engineering',
@@ -39,6 +44,7 @@ const posts = [
 export default function BlogSection() {
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,6 +91,7 @@ export default function BlogSection() {
             <article
               key={i}
               data-testid={`blog-card-${i}`}
+              onClick={() => navigate(`/blog/${post.slug}`)}
               className={`group cursor-pointer transition-all duration-500 ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}

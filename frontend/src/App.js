@@ -14,6 +14,9 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import VideoModal from "@/components/VideoModal";
 import AdminPanel from "@/components/AdminPanel";
+import TechnologyPage from "@/components/TechnologyPage";
+import BlogDetail from "@/components/BlogDetail";
+import PlanSignup from "@/components/PlanSignup";
 import { useScrollReveal } from "@/hooks/useGsap";
 
 const LandingPage = () => {
@@ -48,6 +51,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/technology" element={<TechnologyPage />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
+          <Route path="/plan/:planId" element={<PlanSignup />} />
         </Routes>
       </BrowserRouter>
     </div>

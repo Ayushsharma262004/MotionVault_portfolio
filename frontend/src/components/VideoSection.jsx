@@ -86,7 +86,7 @@ export default function VideoSection({ onOpenVideo }) {
             {
               title: 'Football VAR System',
               duration: '1:48',
-              image: 'https://images.unsplash.com/photo-1518605368461-1ee7c510808a?q=80&w=800&auto=format&fit=crop',
+              image: 'https://images.unsplash.com/photo-1701363539457-875b9bc9bbc1?q=80&w=800&auto=format&fit=crop',
             },
             {
               title: 'Tennis Line Calling',
@@ -97,6 +97,7 @@ export default function VideoSection({ onOpenVideo }) {
             <div
               key={i}
               data-testid={`video-thumb-${i}`}
+              onClick={() => onOpenVideo && onOpenVideo({ title: vid.title, duration: vid.duration, image: vid.image })}
               className={`group cursor-pointer transition-all duration-500 ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}

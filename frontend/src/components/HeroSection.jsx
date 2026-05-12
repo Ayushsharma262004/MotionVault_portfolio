@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Play, Zap, Globe, Shield, Eye } from 'lucide-react';
 
 const rotatingTexts = [
@@ -14,6 +15,7 @@ const rotatingTexts = [
 export default function HeroSection({ onOpenVideo }) {
   const heroRef = useRef(null);
   const spotlightRef = useRef(null);
+  const navigate = useNavigate();
   const [currentText, setCurrentText] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -145,7 +147,10 @@ export default function HeroSection({ onOpenVideo }) {
         >
           <button
             data-testid="hero-watch-demo"
-            onClick={() => onOpenVideo && onOpenVideo({ title: 'Empire AI Demo', subtitle: 'Full demonstration of real-time AI officiating', duration: '3:24' })}
+            onClick={() => {
+              const el = document.querySelector('#video');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="px-6 py-3 text-sm font-body font-semibold text-white bg-empire-blue rounded-full hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-lg glow-blue flex items-center gap-2"
           >
             Watch Demo
@@ -153,6 +158,7 @@ export default function HeroSection({ onOpenVideo }) {
           </button>
           <button
             data-testid="hero-explore-tech"
+            onClick={() => navigate('/technology')}
             className="px-6 py-3 text-sm font-body font-semibold text-empire-dark glass-card rounded-full flex items-center gap-2 hover:scale-[1.03] active:scale-95 transition-all duration-200"
           >
             Explore Technology
