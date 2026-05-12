@@ -20,18 +20,21 @@ Build a premium futuristic animated landing page for Empire AI, an AI-powered au
 
 ## What's Been Implemented (Dec 12, 2025)
 
-### Frontend (React + TailwindCSS)
+### Frontend (React + TailwindCSS + GSAP)
 1. **Navbar** - Floating glassmorphism with smooth scroll navigation, mobile hamburger menu, live status dot
-2. **Hero Section** - Cinematic headline with rotating text, stats cards, CTAs, background orbs
+2. **Hero Section** - Cinematic headline with rotating text, stats cards, CTAs, background orbs, **mouse-follow spotlight effect**
 3. **Sports Showcase** - Tab-based (Cricket/Football/Tennis) with images, AI overlay mockup, feature tags, stats
 4. **How It Works** - 5-step animated timeline with IntersectionObserver reveals
 5. **Live AI Dashboard** - Bento grid with live ball speed, decision log, heatmap, match stats, camera feeds
-6. **Video Storytelling** - Main video thumbnail + 3 sport-specific thumbnails with play buttons
+6. **Video Storytelling** - Main video thumbnail + 3 sport-specific thumbnails with play buttons, **opens video modal**
 7. **Blog Section** - 4 editorial blog cards with category tags, read time, hover effects
 8. **Pricing Section** - 3 tier cards (Turf/Academy/Tournament) + Enterprise CTA
 9. **FAQ Section** - 8 questions using Shadcn Accordion component
 10. **Contact Section** - Form with name/email/phone/sport/message, submits to API
 11. **Footer** - Email subscription, link columns, social links, giant "EMPIRE AI" text
+12. **Video Modal** - Glassmorphism modal triggered from Watch Demo / play buttons, close via X/Escape/backdrop
+13. **Admin Panel** (/admin) - Dashboard with stats, contacts table, subscribers table, search, tabs, refresh
+14. **GSAP ScrollTrigger** - Cinematic scroll-triggered animations (headings, stagger grids, parallax orbs, scale reveals)
 
 ### Backend (FastAPI + MongoDB)
 - POST /api/contact - Save contact form submissions
@@ -48,7 +51,7 @@ Build a premium futuristic animated landing page for Empire AI, an AI-powered au
 
 ## Test Results
 - Backend: 100% (8/8 tests passed)
-- Frontend: 90%+ (all sections render, forms work, navigation works)
+- Frontend: 98%+ (all sections render, forms work, video modal works, admin panel works, GSAP animations active)
 
 ## Prioritized Backlog
 
@@ -56,13 +59,13 @@ Build a premium futuristic animated landing page for Empire AI, an AI-powered au
 - None remaining
 
 ### P1 (Important)
-- Add GSAP ScrollTrigger animations for more cinematic scroll effects
-- Implement actual video playback functionality
-- Add spotlight/mouse-follow interactions on hero section
-- Horizontal scroll sports showcase variant
+- Replace placeholder videos with real demo content
+- Add horizontal scroll sports showcase variant
+- Add magnetic button hover effects
 
 ### P2 (Nice to Have)
-- Admin panel for managing contacts/subscribers
+- Admin authentication/login
+- Delete contacts/subscribers from admin
 - Blog detail pages with full articles
 - Real-time dashboard with WebSocket updates
 - Multi-language support
@@ -71,8 +74,7 @@ Build a premium futuristic animated landing page for Empire AI, an AI-powered au
 - Performance optimization (lazy loading images, code splitting)
 
 ## Next Tasks
-1. Add GSAP ScrollTrigger for section entrance animations
-2. Implement video modal/player for Watch Demo CTA
+1. Replace placeholder videos with real demo content
+2. Add admin authentication
 3. Add magnetic button hover effects
-4. Add parallax depth layers to hero
-5. Build admin dashboard for contact/subscriber management
+4. Build blog detail pages

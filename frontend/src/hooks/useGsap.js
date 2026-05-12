@@ -1,12 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function useScrollReveal(selector = '.gsap-reveal') {
-  const containerRef = useRef(null);
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       const elements = document.querySelectorAll(selector);
@@ -147,10 +145,8 @@ export function useScrollReveal(selector = '.gsap-reveal') {
           }
         );
       });
-    }, containerRef);
+    }, document.body);
 
     return () => ctx.revert();
   }, [selector]);
-
-  return containerRef;
 }
