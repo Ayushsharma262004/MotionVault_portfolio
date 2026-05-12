@@ -1,77 +1,75 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { ArrowRight, Instagram, Twitter, Globe, Activity } from 'lucide-react';
 
-const FADE_MS = 500;
-const FADE_OUT_LEAD = 0.55;
-const VIDEO_SRC = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4';
+const SLIDE_DURATION = 5000;
+const FADE_MS = 1200;
+
+const sportsImages = [
+  {
+    url: 'https://images.pexels.com/photos/36741130/pexels-photo-36741130.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+    label: 'Cricket',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1539053328711-215a8436a9f7?q=80&w=2400&auto=format&fit=crop',
+    label: 'Football',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1710782914858-9324a4c09c4a?q=80&w=2400&auto=format&fit=crop',
+    label: 'Tennis',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1512719994953-eabf50895df7?q=80&w=2400&auto=format&fit=crop',
+    label: 'Cricket',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1759210720456-c9814f721479?q=80&w=2400&auto=format&fit=crop',
+    label: 'Football',
+  },
+];
 
 export default function CinematicHero() {
-  const videoRef = useRef(null);
-  const rafRef = useRef(null);
-  const fadingOutRef = useRef(false);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [nextIdx, setNextIdx] = useState(1);
+  const [transitioning, setTransitioning] = useState(false);
   const [email, setEmail] = useState('');
+  const timerRef = useRef(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  const fadeTo = useCallback((target, duration) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    const video = videoRef.current;
-    if (!video) return;
-
-    const startOpacity = parseFloat(video.style.opacity) || 0;
-    const startTime = performance.now();
-
-    const step = (now) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      video.style.opacity = String(startOpacity + (target - startOpacity) * progress);
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(step);
-      }
-    };
-    rafRef.current = requestAnimationFrame(step);
+  // Preload images
+  useEffect(() => {
+    let loaded = 0;
+    sportsImages.forEach((img) => {
+      const i = new Image();
+      i.onload = () => {
+        loaded++;
+        if (loaded === sportsImages.length) setImagesLoaded(true);
+      };
+      i.onerror = () => {
+        loaded++;
+        if (loaded === sportsImages.length) setImagesLoaded(true);
+      };
+      i.src = img.url;
+    });
   }, []);
 
+  // Auto-advance slideshow
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    if (!imagesLoaded) return;
 
-    const onLoadedData = () => {
-      video.style.opacity = '0';
-      video.play().catch(() => {});
-      fadeTo(1, FADE_MS);
-    };
+    const advance = () => {
+      const next = (currentIdx + 1) % sportsImages.length;
+      setNextIdx(next);
+      setTransitioning(true);
 
-    const onTimeUpdate = () => {
-      if (
-        !fadingOutRef.current &&
-        video.duration - video.currentTime <= FADE_OUT_LEAD &&
-        video.duration - video.currentTime > 0
-      ) {
-        fadingOutRef.current = true;
-        fadeTo(0, FADE_MS);
-      }
-    };
-
-    const onEnded = () => {
-      video.style.opacity = '0';
       setTimeout(() => {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-        fadingOutRef.current = false;
-        fadeTo(1, FADE_MS);
-      }, 100);
+        setCurrentIdx(next);
+        setTransitioning(false);
+      }, FADE_MS);
     };
 
-    video.addEventListener('loadeddata', onLoadedData);
-    video.addEventListener('timeupdate', onTimeUpdate);
-    video.addEventListener('ended', onEnded);
-
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      video.removeEventListener('loadeddata', onLoadedData);
-      video.removeEventListener('timeupdate', onTimeUpdate);
-      video.removeEventListener('ended', onEnded);
-    };
-  }, [fadeTo]);
+    timerRef.current = setInterval(advance, SLIDE_DURATION);
+    return () => clearInterval(timerRef.current);
+  }, [currentIdx, imagesLoaded]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,26 +90,62 @@ export default function CinematicHero() {
       data-testid="cinematic-hero"
       className="relative min-h-screen bg-black overflow-hidden flex flex-col"
     >
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        src={VIDEO_SRC}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        data-testid="hero-bg-video"
-        className="absolute inset-0 w-full h-full object-cover translate-y-[17%] z-0"
-        style={{ opacity: 0 }}
-      />
+      {/* Animated Background Images */}
+      {sportsImages.map((img, idx) => (
+        <div
+          key={idx}
+          className="absolute inset-0 w-full h-full z-0"
+          style={{
+            opacity: idx === currentIdx ? (transitioning ? 0 : 1) :
+                     idx === nextIdx && transitioning ? 1 : 0,
+            transition: `opacity ${FADE_MS}ms ease-in-out`,
+          }}
+        >
+          <img
+            src={img.url}
+            alt={img.label}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              animation: idx === currentIdx && !transitioning
+                ? `kenburns ${SLIDE_DURATION + FADE_MS}ms ease-in-out forwards`
+                : 'none',
+              transform: 'scale(1)',
+            }}
+          />
+        </div>
+      ))}
 
-      {/* Subtle gradient overlay for text legibility */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
+      {/* Dark cinematic overlays */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/50 via-black/20 to-black/70 pointer-events-none" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" />
+
+      {/* Sport label indicator */}
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3" data-testid="sport-indicators">
+        {sportsImages.map((img, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              clearInterval(timerRef.current);
+              setNextIdx(idx);
+              setTransitioning(true);
+              setTimeout(() => {
+                setCurrentIdx(idx);
+                setTransitioning(false);
+              }, FADE_MS);
+            }}
+            className={`h-1 rounded-full transition-all duration-500 ${
+              idx === currentIdx
+                ? 'w-8 bg-white'
+                : 'w-3 bg-white/30 hover:bg-white/50'
+            }`}
+            aria-label={img.label}
+          />
+        ))}
+      </div>
 
       {/* Navigation */}
       <nav className="relative z-20 pl-6 pr-6 py-6" data-testid="cinematic-nav">
         <div className="liquid-glass rounded-full px-6 py-3 flex items-center justify-between max-w-5xl mx-auto">
-          {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
               <Activity className="w-5 h-5 text-white" />
@@ -122,7 +156,6 @@ export default function CinematicHero() {
             </span>
           </div>
 
-          {/* Nav links */}
           <div className="hidden md:flex items-center gap-8">
             {[
               { label: 'Features', href: '#sports' },
@@ -139,7 +172,6 @@ export default function CinematicHero() {
             ))}
           </div>
 
-          {/* Right actions */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => scrollToSection('#contact')}
@@ -160,7 +192,7 @@ export default function CinematicHero() {
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[10%]">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[5%]">
         <h1
           data-testid="cinematic-heading"
           className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight whitespace-nowrap italic"
@@ -170,7 +202,6 @@ export default function CinematicHero() {
         </h1>
 
         <div className="max-w-xl w-full space-y-4">
-          {/* Email input */}
           <form
             onSubmit={handleSubmit}
             data-testid="cinematic-email-form"
@@ -193,13 +224,11 @@ export default function CinematicHero() {
             </button>
           </form>
 
-          {/* Subtitle */}
           <p className="text-white/70 text-sm leading-relaxed px-4">
-            Stay updated with the latest in AI-powered sports officiating.
-            Subscribe to our newsletter and never miss exciting updates.
+            AI-powered umpiring for cricket, football, tennis and beyond.
+            Real-time decisions with 99.7% accuracy.
           </p>
 
-          {/* Manifesto button */}
           <div className="flex justify-center">
             <button
               onClick={() => scrollToSection('#how-it-works')}

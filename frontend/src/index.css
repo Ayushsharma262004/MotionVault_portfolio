@@ -60,6 +60,16 @@ body {
     pointer-events: none;
 }
 
+/* Ken Burns zoom effect for hero slideshow */
+@keyframes kenburns {
+    0% {
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        transform: scale(1.12) translate(-1%, -1%);
+    }
+}
+
 .glass-light {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(16px);
