@@ -1,0 +1,20 @@
+Backend Setup:
+
+cd e:\Ayush\project\ai_auto_umpires\motionvault_portfolio\backend
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+
+cd e:\Ayush\project\ai_auto_umpires\motionvault_portfolio\backend
+.\venv\Scripts\activate
+uvicorn server:app --reload --host 0.0.0.0 --port 8000
+
+Frontend Setup:
+
+cd e:\Ayush\project\ai_auto_umpires\motionvault_portfolio\frontend
+yarn install
+
+cd e:\Ayush\project\ai_auto_umpires\motionvault_portfolio\frontend
+yarn start
+
+
